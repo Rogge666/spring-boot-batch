@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="common" />
+        <module name="csv2csv" />
+        <module name="csv2db" />
+        <module name="db2csv" />
+        <module name="db2db" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common" target="1.8" />
+      <module name="csv2csv" target="1.8" />
+      <module name="csv2db" target="1.8" />
+      <module name="db2csv" target="1.8" />
+      <module name="db2db" target="1.8" />
+      <module name="spring-batch" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
