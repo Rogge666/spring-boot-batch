@@ -81,7 +81,8 @@ public class BatchConfiguration {
     @Bean
     public TaskletStep chunkBasedStep() throws Exception {
         return stepBuilderFactory.get("asyncChunkBasedStep")
-                .allowStartIfComplete(true)
+                //设置job结束之后是否重新开始
+                .allowStartIfComplete(false)
                 .listener(new StepCheckingListener())
                 .<CSVStockBean, CSVStockBean>chunk(50)
                 .reader(getMultiResourceItemReader())
