@@ -1,6 +1,7 @@
 package com.rogge.batch.module2;
 
 import com.rogge.batch.common.bean.DBStockBean;
+import com.rogge.batch.common.listener.JobExecutionTimeListener;
 import com.rogge.batch.common.listener.StepCheckingListener;
 import com.rogge.batch.common.row_mapper.DbStockRowMapper;
 import com.rogge.batch.common.sql.SQLUtils;
@@ -31,7 +32,7 @@ public class BatchConfiguration {
     private StepBuilderFactory stepBuilderFactory;
 
     @Resource
-    private D2dItemProcessor mD2DItemProcessor;
+    private D2cItemProcessor mD2CItemProcessor;
 
     @Resource
     private DataSource mDataSource;
@@ -51,7 +52,7 @@ public class BatchConfiguration {
     public ItemProcessor<DBStockBean, DBStockBean> itemProcessor() throws Exception {
         List<ItemProcessor<DBStockBean, DBStockBean>> delegates = new ArrayList<>();
         //ItemProcessor需要用注入的方式才能被Spring管理   不能使用new的形式
-        delegates.add(mD2DItemProcessor);
+        delegates.add(mD2CItemProcessor);
         CompositeItemProcessor<DBStockBean, DBStockBean> compositeItemProcessor = new CompositeItemProcessor<>();
         compositeItemProcessor.setDelegates(delegates);
         compositeItemProcessor.afterPropertiesSet();
@@ -59,13 +60,16 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public D2dItemWrite crmBatchWriter() {
-        return new D2dItemWrite();
+    public D2cItemWrite d2cBatchWriter() {
+        return new D2cItemWrite();
     }
 
     @Bean
     public Job readFromCsvJob() throws Exception {
-        return this.jobBuilderFactory.get("d2cDataSendJob").start(chunkBasedStep()).build();
+        return this.jobBuilderFactory.get("d2cDataSendJob")
+                .start(chunkBasedStep())
+                .listener(new JobExecutionTimeListener())
+                .build();
     }
 
     @Bean
@@ -77,7 +81,7 @@ public class BatchConfiguration {
                 .<DBStockBean, DBStockBean>chunk(50)
                 .reader(getMultiResourceItemReader())
                 .processor(itemProcessor())
-                .writer(crmBatchWriter())
+                .writer(d2cBatchWriter())
                 .build();
     }
 

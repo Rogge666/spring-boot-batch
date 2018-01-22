@@ -28,7 +28,7 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class D2dItemWrite implements ItemWriter<CSVStockBean> {
+public class D2cItemWrite implements ItemWriter<CSVStockBean> {
 
     /**
      * 以下对Bean的操作使用  {@link SQLUtils}生成

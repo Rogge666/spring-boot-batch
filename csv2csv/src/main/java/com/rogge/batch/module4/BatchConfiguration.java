@@ -1,6 +1,7 @@
 package com.rogge.batch.module4;
 
 import com.rogge.batch.common.bean.CSVStockBean;
+import com.rogge.batch.common.listener.JobExecutionTimeListener;
 import com.rogge.batch.common.listener.StepCheckingListener;
 import com.rogge.batch.common.reader.ExtendedMultiResourceItemReader;
 import com.rogge.batch.common.utils.BeanUtils;
@@ -75,7 +76,10 @@ public class BatchConfiguration {
 
     @Bean
     public Job readFromCsvJob() throws Exception {
-        return this.jobBuilderFactory.get("c2cDataSendJob").start(chunkBasedStep()).build();
+        return this.jobBuilderFactory.get("c2cDataSendJob")
+                .start(chunkBasedStep())
+                .listener(new JobExecutionTimeListener())
+                .build();
     }
 
     @Bean

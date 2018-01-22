@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class D2dItemProcessor implements ItemProcessor<DBStockBean, DBStockBean> {
+public class D2cItemProcessor implements ItemProcessor<DBStockBean, DBStockBean> {
 
     @Override
     public DBStockBean process(DBStockBean dbStockBean) throws Exception {

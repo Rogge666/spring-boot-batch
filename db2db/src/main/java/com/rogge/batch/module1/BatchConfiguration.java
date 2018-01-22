@@ -1,6 +1,7 @@
 package com.rogge.batch.module1;
 
 import com.rogge.batch.common.bean.DBStockBean;
+import com.rogge.batch.common.listener.JobExecutionTimeListener;
 import com.rogge.batch.common.listener.StepCheckingListener;
 import com.rogge.batch.common.row_mapper.DbStockRowMapper;
 import com.rogge.batch.common.sql.SQLUtils;
@@ -59,13 +60,16 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public D2dItemWrite crmBatchWriter() {
+    public D2dItemWrite d2dBatchWriter() {
         return new D2dItemWrite();
     }
 
     @Bean
     public Job readFromCsvJob() throws Exception {
-        return this.jobBuilderFactory.get("d2dDataSendJob").start(chunkBasedStep()).build();
+        return this.jobBuilderFactory.get("d2dDataSendJob")
+                .start(chunkBasedStep())
+                .listener(new JobExecutionTimeListener())
+                .build();
     }
 
     @Bean
@@ -77,7 +81,7 @@ public class BatchConfiguration {
                 .<DBStockBean, DBStockBean>chunk(50)
                 .reader(getMultiResourceItemReader())
                 .processor(itemProcessor())
-                .writer(crmBatchWriter())
+                .writer(d2dBatchWriter())
                 .build();
     }
 

@@ -1,6 +1,7 @@
 package com.rogge.batch.module3;
 
 import com.rogge.batch.common.bean.CSVStockBean;
+import com.rogge.batch.common.listener.JobExecutionTimeListener;
 import com.rogge.batch.common.listener.StepCheckingListener;
 import com.rogge.batch.common.utils.BeanUtils;
 import org.springframework.batch.core.Job;
@@ -65,13 +66,16 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public C2dItemWrite crmBatchWriter() {
+    public C2dItemWrite c2dBatchWriter() {
         return new C2dItemWrite();
     }
 
     @Bean
     public Job readFromCsvJob() throws Exception {
-        return this.jobBuilderFactory.get("c2dDataSendJob").start(chunkBasedStep()).build();
+        return this.jobBuilderFactory.get("c2dDataSendJob")
+                .start(chunkBasedStep())
+                .listener(new JobExecutionTimeListener())
+                .build();
     }
 
     @Bean
@@ -83,7 +87,7 @@ public class BatchConfiguration {
                 .<CSVStockBean, CSVStockBean>chunk(1000)
                 .reader(getMultiResourceItemReader())
                 .processor(itemProcessor())
-                .writer(crmBatchWriter())
+                .writer(c2dBatchWriter())
                 .build();
     }
 
