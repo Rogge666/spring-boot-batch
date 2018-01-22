@@ -1,4 +1,4 @@
-package com.rogge.batch.module1;
+package com.rogge.batch.module2;
 
 import com.rogge.batch.common.bean.DBStockBean;
 import com.rogge.batch.common.listener.StepCheckingListener;
@@ -42,7 +42,7 @@ public class BatchConfiguration {
         lItemReader.setDataSource(mDataSource);
         lItemReader.setFetchSize(200);
         lItemReader.setRowMapper(new DbStockRowMapper());
-        lItemReader.setSql(SQLUtils.GET_EXCEPT_STOCK_SQL);
+        lItemReader.setSql(SQLUtils.GET_ALL_STOCK_EXCEPT_SQL);
         lItemReader.afterPropertiesSet();
         return lItemReader;
     }
@@ -65,7 +65,7 @@ public class BatchConfiguration {
 
     @Bean
     public Job readFromCsvJob() throws Exception {
-        return this.jobBuilderFactory.get("d2dDataSendJob").start(chunkBasedStep()).build();
+        return this.jobBuilderFactory.get("d2cDataSendJob").start(chunkBasedStep()).build();
     }
 
     @Bean

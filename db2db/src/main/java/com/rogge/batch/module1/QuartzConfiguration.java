@@ -1,4 +1,4 @@
-package com.rogge.batch.module3;
+package com.rogge.batch.module1;
 
 import org.springframework.batch.core.configuration.JobLocator;
 import org.springframework.batch.core.configuration.JobRegistry;
@@ -41,12 +41,12 @@ public class QuartzConfiguration {
         JobDetailFactoryBean jobFactory = new JobDetailFactoryBean();
         jobFactory.setJobClass(QuartzJobLauncher.class);
         Map<String, Object> jobDataMap = new HashMap<String, Object>();
-        jobDataMap.put("jobName", "c2dDataSendJob");
+        jobDataMap.put("jobName", "d2dDataSendJob");
         jobDataMap.put("jobLauncher", jobLauncher);
         jobDataMap.put("jobLocator", jobLocator);
         jobFactory.setJobDataAsMap(jobDataMap);
-        jobFactory.setGroup("c2d_group");
-        jobFactory.setName("c2d_job");
+        jobFactory.setGroup("d2d_group");
+        jobFactory.setName("d2d_job");
         return jobFactory;
     }
 
@@ -61,8 +61,8 @@ public class QuartzConfiguration {
         ctFactory.setStartDelay(1000);//延迟启动1秒
         ctFactory.setName("cron_trigger");
         ctFactory.setGroup("cron_group");
-        ctFactory.setCronExpression("0 0/3 * * * ? *"); //每2分钟执行一次
-//        ctFactory.setCronExpression("0/30 * * * * ?"); //每30秒执行一次
+//        ctFactory.setCronExpression("0 0/3 * * * ? *"); //每2分钟执行一次
+        ctFactory.setCronExpression("0/30 * * * * ?"); //每30秒执行一次
         return ctFactory;
     }
 

@@ -1,7 +1,8 @@
-package com.rogge.batch.module4;
+package com.rogge.batch.module2;
 
 import com.rogge.batch.common.bean.CSVStockBean;
 import com.rogge.batch.common.listener.DefaultFlatFileHeaderCallback;
+import com.rogge.batch.common.sql.SQLUtils;
 import com.rogge.batch.common.utils.BeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ExecutionContext;
@@ -27,8 +28,11 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class C2cItemWrite implements ItemWriter<CSVStockBean> {
+public class D2dItemWrite implements ItemWriter<CSVStockBean> {
 
+    /**
+     * 以下对Bean的操作使用  {@link SQLUtils}生成
+     */
     @Override
     public void write(List<? extends CSVStockBean> list) throws Exception {
         if (list != null && list.size() > 0) {
@@ -41,7 +45,7 @@ public class C2cItemWrite implements ItemWriter<CSVStockBean> {
             //true 往后添加写入  false 覆盖写入
             lItemWriter.setAppendAllowed(true);
             lItemWriter.setEncoding("UTF-8");
-            lItemWriter.setResource(new ClassPathResource("output_csv/all.csv"));
+            lItemWriter.setResource(new ClassPathResource("output_csv/except.csv"));
             lItemWriter.setLineAggregator(lLineAggregator);
             //文件头回调    这里用来加上标题字段
             lItemWriter.setHeaderCallback(new DefaultFlatFileHeaderCallback());
@@ -52,4 +56,5 @@ public class C2cItemWrite implements ItemWriter<CSVStockBean> {
             log.info("写入" + list.size() + "条数据到CSV需要" + (endTime - startTime) + "ms");
         }
     }
+
 }

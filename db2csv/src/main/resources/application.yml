@@ -10,7 +10,7 @@ spring:
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/rogge
+      url: jdbc:mysql://127.0.0.1:3306/rogge?useUnicode=true&characterEncoding=utf-8
       username: root
       password: 123456
 # 设置为false  当配置有多个job时   不会全部执行

@@ -16,13 +16,19 @@ import java.beans.IntrospectionException;
  */
 public class SQLUtils {
 
-    //使用getCreateSQL()生成
-    public static final String GET_SQL = "select * from stock where code = ? and date = ?";
+    public static final String GET_STOCK_SQL = "select * from stock where code = ? and date = ?";
+    public static final String GET_EXCEPT_STOCK_SQL = "select * from stock where pe < 20";
     //使用getInsertSQL()生成
-    public static final String INSERT_SQL = "insert into stock (code,name,date,yEndPrice,startPrice,highPrice,lowPrice,endPrice,volume,amount,rof,changePercent,averagePrice,turnoverRate,acmv,bcmv,amv,afoe,bfoe,foe,pe,pb,ptsr,pcf,status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String INSERT_STOCK_SQL = "insert into stock (code,name,date,yEndPrice,startPrice,highPrice,lowPrice,endPrice,volume,amount,rof,changePercent,averagePrice,turnoverRate,acmv,bcmv,amv,afoe,bfoe,foe,pe,pb,ptsr,pcf,status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     //使用getUpdateSQL()生成
-    public static final String UPDATE_SQL = "update stock set code = ?, name = ?, date = ?, yEndPrice = ?, startPrice = ?, highPrice = ?, lowPrice = ?, endPrice = ?, volume = ?, amount = ?, rof = ?, changePercent = ?, averagePrice = ?, turnoverRate = ?, acmv = ?, bcmv = ?, amv = ?, afoe = ?, bfoe = ?, foe = ?, pe = ?, pb = ?, ptsr = ?, pcf = ?, status = ? where id = ?";
-    public static final String DELETE_SQL = "delete from stock where id = ?";
+    public static final String UPDATE_STOCK_SQL = "update stock set code = ?, name = ?, date = ?, yEndPrice = ?, startPrice = ?, highPrice = ?, lowPrice = ?, endPrice = ?, volume = ?, amount = ?, rof = ?, changePercent = ?, averagePrice = ?, turnoverRate = ?, acmv = ?, bcmv = ?, amv = ?, afoe = ?, bfoe = ?, foe = ?, pe = ?, pb = ?, ptsr = ?, pcf = ?, status = ? where id = ?";
+    public static final String DELETE_STOCK_SQL = "delete from stock where id = ?";
+
+    public static final String GET_ALL_STOCK_EXCEPT_SQL = "select * from stockExcept";
+    public static final String GET_STOCK_EXCEPT_SQL = "select * from stockExcept where code = ? and date = ?";
+    public static final String INSERT_STOCK_EXCEPT_SQL = "insert into stockExcept (code,name,date,yEndPrice,startPrice,highPrice,lowPrice,endPrice,volume,amount,rof,changePercent,averagePrice,turnoverRate,acmv,bcmv,amv,afoe,bfoe,foe,pe,pb,ptsr,pcf,status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String UPDATE_STOCK_EXCEPT_SQL = "update stockExcept set code = ?, name = ?, date = ?, yEndPrice = ?, startPrice = ?, highPrice = ?, lowPrice = ?, endPrice = ?, volume = ?, amount = ?, rof = ?, changePercent = ?, averagePrice = ?, turnoverRate = ?, acmv = ?, bcmv = ?, amv = ?, afoe = ?, bfoe = ?, foe = ?, pe = ?, pb = ?, ptsr = ?, pcf = ?, status = ? where id = ?";
+    public static final String DELETE_STOCK_EXCEPT_SQL = "delete from stockExcept where id = ?";
 
     public static void main(String[] args) throws ClassNotFoundException, IntrospectionException {
 //        getCreateSQL();

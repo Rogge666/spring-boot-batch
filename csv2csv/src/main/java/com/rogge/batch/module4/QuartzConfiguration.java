@@ -59,7 +59,7 @@ public class QuartzConfiguration {
     public CronTriggerFactoryBean cronTriggerFactoryBean() {
         CronTriggerFactoryBean ctFactory = new CronTriggerFactoryBean();
         ctFactory.setJobDetail(jobDetailFactoryBean().getObject());
-        ctFactory.setStartDelay(1000);    //延迟启动3秒
+        ctFactory.setStartDelay(1000);//延迟启动1秒
         ctFactory.setName("cron_trigger");
         ctFactory.setGroup("cron_group");
 //        ctFactory.setCronExpression("0 0/2 * * * ? *"); //每2分钟执行一次
