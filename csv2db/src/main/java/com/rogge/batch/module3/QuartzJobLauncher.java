@@ -20,8 +20,7 @@ public class QuartzJobLauncher extends QuartzJobBean {
     private JobLocator jobLocator;
 
     @Override
-    protected void executeInternal(JobExecutionContext context)
-            throws JobExecutionException {
+    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         try {
             Job job = jobLocator.getJob(jobName);
             JobExecution jobExecution = jobLauncher.run(job, new JobParametersBuilder().addDate("date", new Date()).toJobParameters());

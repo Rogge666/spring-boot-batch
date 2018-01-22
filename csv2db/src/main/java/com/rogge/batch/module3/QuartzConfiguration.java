@@ -61,7 +61,7 @@ public class QuartzConfiguration {
         ctFactory.setStartDelay(1000);//延迟启动1秒
         ctFactory.setName("cron_trigger");
         ctFactory.setGroup("cron_group");
-        ctFactory.setCronExpression("0 0/3 * * * ? *"); //每2分钟执行一次
+        ctFactory.setCronExpression("0 0/1 * * * ? *"); //每1分钟执行一次
 //        ctFactory.setCronExpression("0/30 * * * * ?"); //每30秒执行一次
         return ctFactory;
     }

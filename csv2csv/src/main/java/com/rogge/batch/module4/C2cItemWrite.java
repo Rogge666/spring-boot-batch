@@ -41,7 +41,12 @@ public class C2cItemWrite implements ItemWriter<CSVStockBean> {
             //true 往后添加写入  false 覆盖写入
             lItemWriter.setAppendAllowed(true);
             lItemWriter.setEncoding("UTF-8");
+            //输出到项目运行时的classPath下
             lItemWriter.setResource(new ClassPathResource("output_csv/all.csv"));
+            //输出项目的根路径下
+//            lItemWriter.setResource(new FileSystemResource("output_csv/all.csv"));
+            //输出到本机的某个位置
+//            lItemWriter.setResource(new UrlResource("file:C:/Users/Administrator/Desktop/all.csv"));
             lItemWriter.setLineAggregator(lLineAggregator);
             //文件头回调    这里用来加上标题字段
             lItemWriter.setHeaderCallback(new DefaultFlatFileHeaderCallback());
@@ -52,4 +57,5 @@ public class C2cItemWrite implements ItemWriter<CSVStockBean> {
             log.info("写入" + list.size() + "条数据到CSV需要" + (endTime - startTime) + "ms");
         }
     }
+
 }

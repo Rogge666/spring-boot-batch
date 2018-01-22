@@ -3,6 +3,7 @@ package com.rogge.batch.common.sql;
 import com.rogge.batch.common.utils.BeanUtils;
 
 import java.beans.IntrospectionException;
+import java.util.Arrays;
 
 /**
  * [Description]
@@ -35,7 +36,8 @@ public class SQLUtils {
 //        getUpdateSQL();
 //        getInsertSQL();
 //        getSetMethodsByBean();
-        getInsertArgs();
+//        getInsertArgs();
+        getInsertArgsV2();
 
     }
 
@@ -81,6 +83,17 @@ public class SQLUtils {
         }
         System.out.println(lInsertArgs.toString());
         return lInsertArgs.toString();
+    }
+
+    //拼写批量插入语句的Object[]
+    private static String[] getInsertArgsV2() throws ClassNotFoundException, IntrospectionException {
+        String[] lReadMethods = BeanUtils.getReadMethods();
+        String[] args = new String[lReadMethods.length];
+        for (int lI = 0; lI < lReadMethods.length; lI++) {
+            args[lI] = "lCSVStockBean." + lReadMethods[lI] + "()";
+        }
+        System.out.println(Arrays.toString(args));
+        return args;
     }
 
     /**

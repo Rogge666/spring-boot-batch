@@ -34,8 +34,8 @@ public class D2dItemWrite implements ItemWriter<DBStockBean> {
      */
     @Override
     public void write(List<? extends DBStockBean> list) throws Exception {
-        long startTime = System.currentTimeMillis();
         if (null != list && list.size() > 0) {
+            long startTime = System.currentTimeMillis();
             for (DBStockBean dBStockBean : list) {
                 List<DBStockBean> lDBStockBeans = jdbcTemplate.query(SQLUtils.GET_STOCK_EXCEPT_SQL, new Object[]{dBStockBean.getCode(), dBStockBean.getDate()}, new DbStockRowMapper());
                 //如果写入之前查询到数据库已存在该条记录则更新  反之插入
@@ -76,9 +76,9 @@ public class D2dItemWrite implements ItemWriter<DBStockBean> {
                     }
                 }
             }
+            long endTime = System.currentTimeMillis();
+            log.info("插入" + list.size() + "条数据需要" + (endTime - startTime) + "ms");
         }
-        long endTime = System.currentTimeMillis();
-        log.info("插入" + list.size() + "条数据需要" + (endTime - startTime) + "ms");
     }
 
 }

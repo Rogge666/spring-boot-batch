@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.Resource;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class BatchConfiguration {
     private C2dItemProcessor mC2dItemProcessor;
 
     @Bean
-    public ItemReader<CSVStockBean> getMultiResourceItemReader() throws ClassNotFoundException {
+    public ItemReader<CSVStockBean> getMultiResourceItemReader() throws ClassNotFoundException, MalformedURLException {
         FlatFileItemReader<CSVStockBean> lItemReader = new FlatFileItemReader<>();
         DefaultLineMapper<CSVStockBean> lLineMapper = new DefaultLineMapper<>();
         BeanWrapperFieldSetMapper<CSVStockBean> lBeanBeanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
@@ -50,7 +51,12 @@ public class BatchConfiguration {
         lItemReader.setLineMapper(lLineMapper);
         //跳过第一行   第一行是标题
         lItemReader.setLinesToSkip(1);
+        //项目运行时的classPath下
         lItemReader.setResource(new ClassPathResource("/input_csv/all.csv"));
+        //项目的根路径下
+//        lItemReader.setResource(new FileSystemResource("/output_csv/all.csv"));
+        //本机的某个位置
+//        lItemReader.setResource(new UrlResource("file:C:/Users/Administrator/Desktop/all.csv"));
         return lItemReader;
     }
 

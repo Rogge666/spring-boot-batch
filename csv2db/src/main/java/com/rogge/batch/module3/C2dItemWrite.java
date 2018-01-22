@@ -35,8 +35,8 @@ public class C2dItemWrite implements ItemWriter<CSVStockBean> {
      */
     @Override
     public void write(List<? extends CSVStockBean> list) throws Exception {
-        long startTime = System.currentTimeMillis();
         if (null != list && list.size() > 0) {
+            long startTime = System.currentTimeMillis();
             for (CSVStockBean lCSVStockBean : list) {
                 List<DBStockBean> lDBStockBeans = jdbcTemplate.query(SQLUtils.GET_STOCK_SQL, new Object[]{lCSVStockBean.getCode(), lCSVStockBean.getDate()}, new DbStockRowMapper());
                 //如果写入之前查询到数据库已存在该条记录则更新  反之插入
@@ -77,9 +77,52 @@ public class C2dItemWrite implements ItemWriter<CSVStockBean> {
                     }
                 }
             }
+
+           /* List<Object[]> lObjects = new ArrayList<>();
+            for (CSVStockBean lCSVStockBean : list) {
+                Object[] lObject = {lCSVStockBean.getCode(), lCSVStockBean.getName(),
+                        lCSVStockBean.getDate(), lCSVStockBean.getYEndPrice(),
+                        lCSVStockBean.getStartPrice(), lCSVStockBean.getHighPrice(),
+                        lCSVStockBean.getLowPrice(), lCSVStockBean.getEndPrice(),
+                        lCSVStockBean.getVolume(), lCSVStockBean.getAmount(),
+                        lCSVStockBean.getRof(), lCSVStockBean.getChangePercent(),
+                        lCSVStockBean.getAveragePrice(), lCSVStockBean.getTurnoverRate(),
+                        lCSVStockBean.getAcmv(), lCSVStockBean.getBcmv(),
+                        lCSVStockBean.getAmv(), lCSVStockBean.getAfoe(),
+                        lCSVStockBean.getBfoe(), lCSVStockBean.getFoe(),
+                        lCSVStockBean.getPe(), lCSVStockBean.getPb(), lCSVStockBean.getPtsr(),
+                        lCSVStockBean.getPcf(), lCSVStockBean.getStatus()};
+                lObjects.add(lObject);
+            }
+            jdbcTemplate.batchUpdate(SQLUtils.INSERT_STOCK_SQL, lObjects);*/
+            long endTime = System.currentTimeMillis();
+            log.info("插入" + list.size() + "条数据需要" + (endTime - startTime) + "ms");
         }
-        long endTime = System.currentTimeMillis();
-        log.info("插入" + list.size() + "条数据需要" + (endTime - startTime) + "ms");
     }
+
+
+    /**
+     * for循环插入耗时
+    *插入1000条数据需要293ms
+     插入1000条数据需要212ms
+     插入1000条数据需要219ms
+     插入1000条数据需要214ms
+     插入1000条数据需要206ms
+     插入1000条数据需要232ms
+     插入1000条数据需要231ms
+     插入199条数据需要38ms
+    * */
+
+    /**
+     * batchUpdate   耗时
+     插入1000条数据需要155ms
+     插入1000条数据需要121ms
+     插入1000条数据需要123ms
+     插入1000条数据需要127ms
+     插入1000条数据需要121ms
+     插入1000条数据需要125ms
+     插入1000条数据需要132ms
+     插入199条数据需要37ms
+     * */
 
 }
