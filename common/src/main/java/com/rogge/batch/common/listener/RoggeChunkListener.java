@@ -4,15 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ChunkListener;
 import org.springframework.batch.core.scope.context.ChunkContext;
 
-/**
- * 类名称：RoggeChunkListener
- * 类描述：
- * 创建人：jiangdong_kzx
- * 创建时间：2018年1月6日 上午11:41:46
- * 修改人：jiangdong_kzx
- * 修改时间：2018年1月6日 上午11:41:46
- * 修改备注：
- */
 @Slf4j
 public class RoggeChunkListener implements ChunkListener {
 
