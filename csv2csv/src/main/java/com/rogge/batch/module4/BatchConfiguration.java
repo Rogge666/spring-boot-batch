@@ -88,7 +88,7 @@ public class BatchConfiguration {
                 //设置job结束之后是否重新开始
                 .allowStartIfComplete(false)
                 .listener(new StepCheckingListener())
-                .<CSVStockBean, CSVStockBean>chunk(50)
+                .<CSVStockBean, CSVStockBean>chunk(1000)
                 .reader(getMultiResourceItemReader())
                 .processor(itemProcessor())
                 .writer(c2cBatchWriter())

@@ -9,7 +9,7 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -42,11 +42,11 @@ public class C2cItemWrite implements ItemWriter<CSVStockBean> {
             lItemWriter.setAppendAllowed(true);
             lItemWriter.setEncoding("UTF-8");
             //输出到项目运行时的classPath下
-            lItemWriter.setResource(new ClassPathResource("output_csv/all.csv"));
+//            lItemWriter.setResource(new ClassPathResource("output_csv/all.csv"));
             //输出项目的根路径下
 //            lItemWriter.setResource(new FileSystemResource("output_csv/all.csv"));
             //输出到本机的某个位置
-//            lItemWriter.setResource(new UrlResource("file:C:/Users/Administrator/Desktop/all.csv"));
+            lItemWriter.setResource(new UrlResource("file:C:/Users/Administrator/Desktop/all.csv"));
             lItemWriter.setLineAggregator(lLineAggregator);
             //文件头回调    这里用来加上标题字段
             lItemWriter.setHeaderCallback(new DefaultFlatFileHeaderCallback());
