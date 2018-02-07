@@ -17,3 +17,10 @@ spring:
   batch:
       job:
         enabled: false
+      initializer:
+        enabled: true
+person:
+  name: rogge
+  sex: man
+  age: 25
+

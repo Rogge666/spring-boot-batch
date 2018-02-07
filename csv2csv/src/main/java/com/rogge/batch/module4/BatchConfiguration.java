@@ -74,8 +74,8 @@ public class BatchConfiguration {
         return new C2cItemWrite();
     }
 
-    @Bean
-    public Job readFromCsvJob() throws Exception {
+    @Bean(name = "c2cDataSendJob")
+    public Job c2cDataSendJob() throws Exception {
         return this.jobBuilderFactory.get("c2cDataSendJob")
                 .start(chunkBasedStep())
                 .listener(new JobExecutionTimeListener())
